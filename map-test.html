@@ -4,15 +4,175 @@
   <title>spideronafork</title>
 </head>
 <body>
-  <center><div id="output"></div></center>
 
-  <script>document.getElementById('output').innerText = 'Hello, World!';</script>
+  <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("demo").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            document.getElementById("demo").innerHTML = "Latitude: " + latitude + "<br>Longitude: " + longitude;
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById("demo").innerHTML = "User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById("demo").innerHTML = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById("demo").innerHTML = "The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById("demo").innerHTML = "An unknown error occurred.";
+                    break;
+            }
+        }
+		getLocation();
+    </script>
+  
+  
+  <center><div id="output"></div></center>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Your Website</title>
+      <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+    
+        header {
+            background-color: #333;
+            color: #daff08;
+            text-align: center;
+            padding: 10px;
+        }
+    
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #06300e;
+        }
+    
+        nav a {
+            text-decoration: none;
+            color: #fffb04;
+            padding: 10px 20px;
+        }
+    
+        nav a:hover {
+            background-color: #0f6427;
+        }
+    
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between; /* Add space between the map and friend list */
+            flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+        }
+    
+        #map {
+            flex: 1; /* Make the map take up available space */
+            height: 70vh;
+        }
+    
+        #main {
+            flex: 0 0 30%; /* Make the friend list take up available space */
+            max-width: 30%; /*Set max width for friend list */
+            background-color: #f0f0f0; /* Add background color for better readability */
+            padding: 20px; /* Add padding to the friend list */
+            box-sizing: border-box; /* include padding with specified width */
+            float: left; /* floast list to right side */
+            height: 300px; /* set height for friend list container */
+            overflow-y: scroll; /* add scroll bar */
+        }
+    
+        /* Style for the friend list items */
+        #main ul {
+            list-style: none;
+            padding: 0;
+        }
+    
+        #main ul li {
+            margin-bottom: 10px;
+        }
+        #main ul li a {
+    text-align: left; /* Set text alignment to the left */
+    display: block; /* Make the anchor element a block element to take up the full width of the list item */
+    padding: 10px 0; /* Add some vertical padding for spacing */
+    text-decoration: none; /* Remove the default underline on anchor elements */
+    color: #333; /* Set the text color (you can adjust the color as needed) */
+}
+
+    </style>
+  </head>
+  <body>
+      <header>
+          <h1>Mason Hangout</h1>
+      </header>
+      <nav>
+          <a href="#main">Main</a>
+          <a href="#profile">Profile</a>
+          <a href="#friends">Friend List</a>
+      </nav>
+      <div class="container">
+          <!-- Content for your profile, main, and friend list goes here -->
+          <section id="main">
+            <header>Friend List</header>
+            <nav>
+                <ul>
+                    <li><a href="#">Friend 1</a></li>
+                    <li><a href="#">Friend 2</a></li>
+                    <li><a href="#">Friend 3</a></li>
+                    <li><a href="#">Friend 4</a></li>
+                    <li><a href="#">Friend 5</a></li>
+                    <li><a href="#">Friend 6</a></li>
+                    <li><a href="#">Friend 7</a></li>
+                    <li><a href="#">Friend 8</a></li>
+                
+
+                </ul>
+            </nav>
+            <style>
+
+    </style>
+            
+              <!-- Add content related to the profile here -->
+          </section>
+          <section id="profile">
+              
+              <!-- Add content related to the main section here -->
+          </section>
+          <section id="friends">
+              
+              <!-- Add content related to the friend list here -->
+          </section>
+      </div>
+  </body>
+  </html>
 </body>
 <head>
   <link href="https://unpkg.com/maplibre-gl@3.x/dist/maplibre-gl.css" rel="stylesheet" />
     <style>
-      body { margin: 100; }
-      #map { height: 50vh; }
+      body { margin: 5000; }
+      #map { width: 130vh;}
+      #map { height: 70vh; }
+      #map {margin-top: 500px;}
     </style>
 </head>
 <body>
@@ -26,13 +186,42 @@
     const map = new maplibregl.Map({
       container: "map",
       style: `https://maps.geo.${region}.amazonaws.com/maps/v0/maps/${mapName}/style-descriptor?key=${apiKey}`,
-      center: [38.830925, -77.307318],
-      zoom: 12,
+      center: [-123.115898, 49.295868],
+      zoom: 11,
     });
     map.addControl(new maplibregl.NavigationControl(), "top-left");
+  
   </script>
+    <script>
+        // JavaScript code for handling page navigation
+        const pages = document.querySelectorAll('.page');
 
-  <label for="addressA">Your Location:</label>
+        // Function to show a specific page and hide others
+        function showPage(pageId) {
+            pages.forEach(page => {
+                if (page.id === pageId) {
+                    page.style.display = 'block';
+                } else {
+                    page.style.display = 'none';
+                }
+            });
+        }
+
+        // Initial page to show (Main page in this case)
+        showPage('main');
+
+        // Add click event listeners to navigation links
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', event => {
+                event.preventDefault();
+                const targetPageId = link.getAttribute('href').substring(1);
+                showPage(targetPageId);
+            });
+        });
+    </script>
+</body>
+</html>
   <input type="text" id="addressA" name="addressA" placeholder="24 Cloverfield St">
 </body>
 </html>
